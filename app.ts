@@ -10,6 +10,12 @@ class Article {
         this.link = link;
         this.votes = votes || 0;
     }
+    voteUp (): void {
+        this.votes += 1;
+    }
+    voteDown (): void {
+        this.votes -= 1;
+    }
 }
 
 @Component({
@@ -51,18 +57,19 @@ class ArticleComponent {
     constructor() {
         this.article = new Article('Angular 2', 'http://angular.io', 10);
     }
-    voteUp (): boolean {
-        this.article.votes += 1;
+    voteUp(): boolean {
+        this.article.voteUp();
         return false;
     }
     voteDown (): boolean {
-        this.article.votes -= 1;
+        this.article.voteDown();
         return false;
     }
 }
 
 @Component({
 selector: 'reddit',
+directives: [ArticleComponent],
 template: `
     <form class="ui large form segment">
         <h3 class="ui header">Add a Link</h3>
